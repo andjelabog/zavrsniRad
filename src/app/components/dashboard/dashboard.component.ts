@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from 'src/app/services/dashboard-service.service';
 import { GovernmentService } from 'src/app/services/government.service';
@@ -20,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private mailService: MailService,
-    private dashboardService: DashboardService, private gs : GovernmentService) { }
+    private dashboardService: DashboardService, private gs: GovernmentService) { }
 
   ngOnInit(): void {
     this.getData();
@@ -30,7 +31,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getData() {
-    let numberForFirst = 0,numberForSecond = 0, starterForSecond = -1;
+    let numberForFirst = 0, numberForSecond = 0, starterForSecond = -1;
     this.dashboardService.getData().subscribe(data => {
       for (let i = 0; i < data.length; i++) {
         if (!data[i]['code'].includes("PROCENAT")) {
@@ -38,7 +39,7 @@ export class DashboardComponent implements OnInit {
           this.firstGraph[numberForFirst][0] = (data[i]['name']);
           for (let j = 0; j < data[i]['data'].length; j++) {
             this.firstGraphData.push(data[i]['data'][j]['people'])
-            if (i == 0){
+            if (i == 0) {
               this.firstGraphChartLabels.push(data[0]['data'][j]['date'])
               this.secondGraphChartLabels.push(data[0]['data'][j]['date'])
 
@@ -58,6 +59,13 @@ export class DashboardComponent implements OnInit {
           this.secondGraph[numberForSecond++][1] = (this.secondGraphData);
           this.secondGraphData = [];
         }
+        // Adding another date to the end of the array of labels, to avoid "undefined"
+        let date = new Date(this.firstGraphChartLabels[this.firstGraphChartLabels.length - 1]);
+        date.setDate(date.getDate()+ 1);
+        this.firstGraphChartLabels.push(formatDate(date,"yyyy-MM-dd","en"));
+        date = new Date(this.secondGraphChartLabels[this.secondGraphChartLabels.length - 1]);
+        date.setDate(date.getDate()+ 1); 
+        this.secondGraphChartLabels.push(formatDate(date,"yyyy-MM-dd","en"));
       }
     })
   }
