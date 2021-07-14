@@ -6,5 +6,12 @@
     "updated": "Last updated {{output}} minutes ago.",
     "email": "Email address",
     "password": "Password",
-    "lng": "ENG"
+    "lng": "ENG",
+    "podaci": "Input data are taken from covid19.rs. Source: Institute of Public Health of Serbia \"Dr Milan Jovanovic Batut\".",
+    "download": "Download data",
+    "email_send": "Send data to mail",
+    "ok": "OK!",
+    "close": "Close",
+    "modal": "Please insert your email",
+    "success_message": "Email was sent to selected mail address"
 }

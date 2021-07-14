@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { BaseChartDirective, Color, Label } from 'ng2-charts';
+import { Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-line-chart',
@@ -9,19 +9,6 @@ import { BaseChartDirective, Color, Label } from 'ng2-charts';
 })
 export class LineChartComponent implements OnInit {
 
-  @ViewChild(BaseChartDirective) private _chart: BaseChartDirective
-  public getLegendCallback: any = ((self: this): any => {
-    function handle(chart: any): any {
-      console.log(chart.legend)
-      return chart.legend.legendItems;
-    }
-
-    return function (chart: Chart): any {
-      console.log(chart)
-      return handle(chart);
-    };
-  })(this);
-
   @Input() inputLineChartData = [[], []];
   @Input() inputLineChartLabels = [];
   @Input() selectedLabel: String = "";
@@ -29,6 +16,14 @@ export class LineChartComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [];
   public lineChartLabels: Label[] = [];
 
+  showLoader: boolean = true;
+
+  /**
+   * Options for chart.
+   * Customisation of responsivenes, legend customization, tooltip, layout and hover customization
+   * All various settings of graphs
+   * Can be found : https://www.chartjs.org/
+   */
   public lineChartOptions: ChartOptions = {
     responsive: true,
     aspectRatio: 2,
@@ -40,7 +35,6 @@ export class LineChartComponent implements OnInit {
       },
       align: 'end',
     },
-    legendCallback: this.getLegendCallback,
     spanGaps: true,
     tooltips: {
       mode: 'x-axis',
@@ -68,36 +62,15 @@ export class LineChartComponent implements OnInit {
 
     }
   };
-  public lineChartColors: Color[] = [
-    {
-      // borderColor: 'black',
-      //   backgroundColor: [
-      //     '#4BB3D2',
-      //     '#41c298',
-      //     '#EBA538',
-      //     '#D94D4D',
-      //     '#7D3EB4',
-      //     '#d15d9b',
-      //     '#775D45',
-      //     '#4E5DD1',
-      //     '#79265C',
-      //     '#B7AF50',
-      //     '#a7c992',
-      //     '#cc9d84',
-      //     '#87AB66',
-      //     '#d47fbd',
-      //     '#94acfc'],
-    }
-  ];
   public lineChartLegend = true;
   public lineChartType: ChartType = 'line';
-  public lineChartPlugins = [];
 
   constructor() {
   }
 
-  ngOnInit() {
 
+  ngOnInit() {
+    // Try to avoid setTimeout function
     setTimeout(() => {
       if (!!this.inputLineChartData && this.inputLineChartData.length > 0 && !!this.inputLineChartLabels && this.inputLineChartLabels.length > 0) {
         this.lineChartData = [];
@@ -115,10 +88,17 @@ export class LineChartComponent implements OnInit {
         }
         this.lineChartData[0].hidden = false; // Show only the first one
         this.lineChartLabels = this.inputLineChartLabels;
+        this.showLoader = false;
       }
     }, 5000);
   }
 
+
+  /**
+   * getColor(index) => custom colors
+   * @param index 
+   * @returns color with that index
+   */
   getColor(index) {
     let colors = [
       '#4BB3D2',

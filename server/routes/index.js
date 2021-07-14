@@ -10,10 +10,12 @@ const dashboardRoutes = require('./dashboard.route');
 router.get('/', function(req, res) {
     res.send('API works!');
 });
+
+router.use('/mail', mailRoutes);
 router.use('/posts', postRoutes);
 router.use('/govs', govRoutes);
 router.use('/dashboard', dashboardRoutes);
-router.use('/mail', mailRoutes);
+
 
 
 

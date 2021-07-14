@@ -11,9 +11,9 @@ export class MailService {
   mailUrl = `${environment.apiUrl}/mail/testMail`;
   constructor(private http: HttpClient) { }
 
-  public sendTestMail(): Observable<any> {
+  public sendTestMail(data: String, mail: String): Observable<any> {
     return this.http
-      .get(this.mailUrl)
+      .post(this.mailUrl, {"body": data, "email": mail})
       .pipe(map(response => response));
   }
 }

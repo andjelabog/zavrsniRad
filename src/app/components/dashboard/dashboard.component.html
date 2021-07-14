@@ -1,12 +1,82 @@
+<div class="alert alert-light" role="alert">
+    <p class="fst-italic"> {{'podaci' | translate}} </p>
+</div>
+<mat-divider></mat-divider>
+<br>
+<!-- FIRST GRAPH -->
+<div class="row">
+    <div class="position-relative">
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <!-- Button for downloading CSV -->
+                <button type="button" mat-raised-button color="accent" matTooltip="{{'download' | translate}}" (click)="downloadAsCSV(1)">
+                    <i class="bi bi-cloud-download-fill"></i>
+                </button>
+                <!-- Button for sending data to mail -->
+                <button type="button" mat-raised-button color="primary" matTooltip="{{'email_send' | translate}}" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="setMailer(1)">
+                    <i class="bi bi-envelope-open-fill"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row justify-content-between">
-    <!-- <div class="col-sm-6"> -->
     <app-line-chart [inputLineChartData]="firstGraph" [inputLineChartLabels]="firstGraphChartLabels"></app-line-chart>
-    <!-- </div> -->
 </div>
 
-<div class="row justify-content-between">
-    <!-- <div class="col-sm-6"> -->
-    <app-line-chart [inputLineChartData]="secondGraph" [inputLineChartLabels]="secondGraphChartLabels"></app-line-chart>
-    <!-- </div> -->
+<br><br><br>
 
+
+
+<div class="alert alert-light" role="alert">
+    <p class="fst-italic"> {{'podaci' | translate}} </p>
+</div>
+<mat-divider></mat-divider>
+<br>
+<!-- SECOND GRAPH -->
+<div class="row">
+    <div class="position-relative">
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <!-- Button for downloading CSV -->
+                <button type="button" mat-raised-button color="accent" matTooltip="{{'download' | translate}}" (click)="downloadAsCSV(2)">
+                    <i class="bi bi-cloud-download-fill"></i>
+                </button>
+                <!-- Button for sending data to mail -->
+                <button type="button" mat-raised-button color="primary" matTooltip="{{'email_send' | translate}}" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="setMailer(2)">
+                    <i class="bi bi-envelope-open-fill"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-between">
+    <app-line-chart [inputLineChartData]="secondGraph" [inputLineChartLabels]="secondGraphChartLabels"></app-line-chart>
+</div>
+
+
+
+
+
+
+<!-- MODAL -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">{{'modal'| translate}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">@</span>
+                    <input type="text" class="form-control" placeholder="Username" [(ngModel)]="emailForNode" aria-label="Username" aria-describedby="addon-wrapping">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" mat-raised-button data-bs-dismiss="modal">{{'close' | translate}}</button>
+                <button type="button" mat-raised-button color="primary" data-bs-dismiss="modal" (click)="sendMail();openSnackBar('OK')">{{'ok' | translate}}</button>
+            </div>
+        </div>
+    </div>
 </div>

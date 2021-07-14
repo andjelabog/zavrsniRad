@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const MailCtrl = require('../controllers/mail.controller');
 
-router.get('/testMail', MailCtrl.sendMail);
+router.post('/testMail', MailCtrl.sendMail);
 
 
 
