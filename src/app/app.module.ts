@@ -42,6 +42,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AmbulancesComponent } from './ambulances/ambulances.component';
 
 
 const appRoutes: Routes = [
@@ -50,7 +51,8 @@ const appRoutes: Routes = [
     component: BaseComponent,
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'map', component: ShowOnMapComponent }
+      { path: 'map', component: ShowOnMapComponent },
+      { path: 'ambulances', component: AmbulancesComponent }
     ]
 
   }
@@ -69,6 +71,7 @@ const appRoutes: Routes = [
     LineChartComponent,
     FooterComponent,
     ShowOnMapComponent,
+    AmbulancesComponent,
   ],
   imports: [
     BrowserModule,

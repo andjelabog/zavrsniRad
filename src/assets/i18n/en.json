@@ -3,6 +3,7 @@
     "dashboard": "Dashboard",
     "home": "Home page",
     "map": "Geographical representation",
+    "ambulances": "Ambulances",
     "updated": "Last updated {{output}} minutes ago.",
     "email": "Email address",
     "password": "Password",

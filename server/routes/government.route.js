@@ -3,6 +3,7 @@ const router = express.Router();
 const request = require('request');
 const rp = require('request-promise');
 const Initial = require('../models/initial.model');
+const Ambulance = require('../models/ambulance.model');
 
 function doACall(options) {
     return rp(options)
@@ -24,6 +25,39 @@ router.post('/map', function(req, res) {
         }
     };
     doACall(options).then(function(body) {
+        res.send(body);
+    })
+});
+
+
+router.get('/ambulances', function(req, res) {
+    var options = {
+        uri: 'https://covid19.data.gov.rs/api/datasets/ambulances',
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    doACall(options).then(function(body) {
+        initialArray = JSON.parse(body);
+        for (let i = 0; i < initialArray.length; i++) {
+            const newAmbulance = new Ambulance({
+                lat: initialArray[i]['latitude'],
+                lng: initialArray[i]['longitude'],
+                city: initialArray[i]['city'],
+                name: initialArray[i]['name'],
+                memo: initialArray[i]['memo'],
+                street: initialArray[i]['street'],
+                phone: initialArray[i]['phone1'],
+            })
+            newAmbulance.save().catch(function(err) {
+                return res.status(400).json({
+                    status: 400,
+                    message: err.message
+                });
+            })
+
+        }
         res.send(body);
     })
 });

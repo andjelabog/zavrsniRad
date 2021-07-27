@@ -15,7 +15,7 @@ export class ShowOnMapComponent implements OnInit {
   regions: any[] = [];
   citiesInSelectedRegion: any[] = [];
   map: mapboxgl.Map;
-  style = 'mapbox://styles/legendaigre/ckokag0zs1o4417o2sx7ogkpy';
+  style = environment.style;
   lat = 21.0059;
   lng = 44.2260;
 
@@ -30,7 +30,7 @@ export class ShowOnMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUpMap();
-    this.governmentService.getStatisticsForADate("2020-03-25").subscribe(res => console.log(res))
+    // this.governmentService.getStatisticsForADate("2020-03-25").subscribe(res => console.log(res))
     this.parseData();
     this.drawPolygons(this.regions);
   }

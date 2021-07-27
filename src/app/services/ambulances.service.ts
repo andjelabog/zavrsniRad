@@ -7,8 +7,8 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
-  getUrl = `${environment.apiUrl}/dashboard`;
+export class AmbulancesService {
+  getUrl = `${environment.apiUrl}/ambulance`;
 
   constructor(
     private http: HttpClient

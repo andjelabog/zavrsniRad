@@ -10,6 +10,7 @@ const app = express();
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
+//bodyParser depricated????
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
