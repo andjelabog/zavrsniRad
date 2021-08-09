@@ -9,7 +9,6 @@ export const environment = {
     accessToken: 'pk.eyJ1IjoibGVnZW5kYWlncmUiLCJhIjoiY2trNDdsZ256MWlkbjJvbWYyeWt5bHRiZSJ9.9D-pfU7m_1A0WYBm5IOP9A'
   },
   style: 'mapbox://styles/legendaigre/ckokag0zs1o4417o2sx7ogkpy',
-  styleAmbulance: 'mapbox://styles/mapbox/light-v10'
 };
 /*
  * For easier debugging in development mode, you can import the following file

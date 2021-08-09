@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import * as mapboxgl from 'mapbox-gl';
-import { environment } from 'src/environments/environment';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import * as L from 'leaflet';
+import 'leaflet.markercluster'
 import { AmbulancesService } from '../services/ambulances.service';
 
 @Component({
@@ -8,195 +8,64 @@ import { AmbulancesService } from '../services/ambulances.service';
   templateUrl: './ambulances.component.html',
   styleUrls: ['./ambulances.component.css']
 })
-export class AmbulancesComponent implements OnInit {
+export class AmbulancesComponent implements OnInit, AfterViewInit {
   ambulances: any[] = [];
-  // ambulanceGeoJSON: any[] = []; // Created as geoJSON in ngOnInit
-  map: mapboxgl.Map;
-  style = "mapbox://styles/mapbox/light-v10";
+  map;
   lat = 21.0059;
   lng = 44.2260;
 
   constructor(private ambulanceServices: AmbulancesService) { }
 
+
   ngOnInit(): void {
-    this.setUpMap();
-    this.ambulances = []; //this.ambulanceGeoJSON = [];
+    this.ambulances = [];
     this.ambulanceServices.getData().subscribe(data => {
       this.ambulances = data;
-      // let i = 0;
-      // data.forEach(element => {
-      //   this.ambulanceGeoJSON.push({
-      //     "type": "Feature",
-      //     "properties": {
-      //       "clusterId": i++,
-      //       "cluster": false
-      //     },
-      //     "geometry": {
-      //       "type": "Point",
-      //       "coordinates": [element.lng, element.lat]
-      //     }
-      //   });
-      // });
-      this.createMarkers();
+      this.drawMarkers();
     })
   }
 
+  ngAfterViewInit(): void {
+    this.initMap();
+    
+  }
 
-
-  setUpMap() {
-    // mapboxgl.accessToken = environment.mapbox.accessToken; -- accessToken is readOnly
-    // workaround 
-    Object.getOwnPropertyDescriptor(mapboxgl, "accessToken").set(environment.mapbox.accessToken);
-    this.map = new mapboxgl.Map({
-      container: 'map',
-      style: this.style,
-      zoom: 6.5,
-      center: [this.lat, this.lng],
-      minZoom: 6.5          // To disable zooming out too much
-      // interactive: false // To enable zooming in and out
+  initMap() {
+    // Initialize the map on the "map" div with a given center and zoom
+    this.map = L.map('map', {
+      center: [this.lng, this.lat],
+      zoomSnap: 0.1,
+      zoom: 7.4,
+      zoomControl: false,
+      dragging: false
     });
-  }
-
-  createMarkers() {
-    this.map.on('load', () => {
-      this.ambulances.forEach(element => {
-        let popup = new mapboxgl.Popup({ offset: 25 })
-          .setHTML("<strong><p>" + element.name + "</p> </strong>"
-            + "<em>" + element.street + ", " + element.city + "</em>"
-            + "<p>telefon:" + element.phone + "</p>"
-            + "<p>" + element.memo + "</p>");
-
-        new mapboxgl.Marker()
-          .setLngLat([element.lng, element.lat])
-          .setPopup(popup)
-          .addTo(this.map);
-      })
-
+    // Draw a layer [ tileLayer ]
+    let tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      minZoom: 7.5,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">Zavrsni rad</a>'
     });
+    tiles.addTo(this.map);
   }
-  /** createCluster(){
-      this.map.addSource('points', {
-        type: 'geojson',
-        data: {
-          "type": "FeatureCollection",
-          "features": this.ambulanceGeoJSON
-        },
-        cluster: true,
-        clusterMaxZoom: 14, // Max zoom to cluster points on
-        clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
-      });
-      this.map.addLayer({
-        id: 'clusters',
-        type: 'circle',
-        source: 'points',
-        filter: ['has', 'point_count'],
-        paint: {
-          // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-          // with three steps to implement three types of circles:
-          //   * Blue, 20px circles when point count is less than 100
-          //   * Yellow, 30px circles when point count is between 100 and 750
-          //   * Pink, 40px circles when point count is greater than or equal to 750
-          'circle-color': [
-            'step',
-            ['get', 'point_count'],
-            '#51bbd6',
-            100,
-            '#f1f075',
-            750,
-            '#f28cb1'
-          ],
-          'circle-radius': [
-            'step',
-            ['get', 'point_count'],
-            20,
-            100,
-            30,
-            750,
-            40
-          ]
-        }
-      });
 
-      this.map.addLayer({
-        id: 'cluster-count',
-        type: 'symbol',
-        source: 'points',
-        filter: ['has', 'point_count'],
-        layout: {
-          'text-field': '{point_count_abbreviated}',
-          'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-          'text-size': 12
-        }
-      });
+  drawMarkers() {
+    let markers = L.markerClusterGroup();
+    let customIcon = L.icon({
+      iconUrl: './assets/ambulance_icon_small.png',
+      iconSize: [50, 44],
+    });
+    this.ambulances.forEach(ambulance => {
+      let popup = "";
+      popup += '<b>' + ambulance.name + '</b><br>';
+      popup += ambulance.street + ', ' + ambulance.city + '<br>';
+      popup += 'телефон: ' + '<b>' + ambulance.phone + '</b>' + '<br>';
+      popup += ambulance.memo;
 
-      this.map.addLayer({
-        id: 'unclustered-point',
-        type: 'circle',
-        source: 'points',
-        filter: ['!', ['has', 'point_count']],
-        paint: {
-          'circle-color': '#11b4da',
-          'circle-radius': 4,
-          'circle-stroke-width': 1,
-          'circle-stroke-color': '#fff'
-        }
-      });
-
-      // inspect a cluster on click
-      this.map.on('click', 'clusters', function (e) {
-        var features = this.map.queryRenderedFeatures(e.point, {
-          layers: ['clusters']
-        });
-        var clusterId = features[0].properties.cluster_id;
-        this.map.getSource('points').getClusterExpansionZoom(
-          clusterId,
-          function (err, zoom) {
-            if (err) return;
-
-            this.map.easeTo({
-              center: features[0].geometry.coordinates,
-              zoom: zoom
-            });
-          }
-        );
-      });
-
-      When a click event occurs on a feature in
-      the unclustered-point layer, open a popup at
-      the location of the feature, with
-      description HTML from its properties.
-      this.map.on('click', 'unclustered-point', (e) => {
-        var coordinates = e.features[0].geometry.coordinates.slice();
-        var mag = e.features[0].properties.mag;
-        var tsunami;
-
-        if (e.features[0].properties.tsunami === 1) {
-          tsunami = 'yes';
-        } else {
-          tsunami = 'no';
-        }
-
-        // Ensure that if the map is zoomed out such that
-        // multiple copies of the feature are visible, the
-        // popup appears over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-
-        new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML(
-            'magnitude: ' + mag + '<br>Was there a tsunami?: ' + tsunami
-          )
-          .addTo(this.map);
-      });
-
-      this.map.on('mouseenter', 'clusters', function () {
-        this.map.getCanvas().style.cursor = 'pointer';
-      });
-      this.map.on('mouseleave', 'clusters', function () {
-        this.map.getCanvas().style.cursor = '';
-      });
+      markers.addLayer(L.marker([ambulance.lat, ambulance.lng], { icon: customIcon }).bindPopup(popup));
+    })
+    this.map.addLayer(markers);
+    this.map.setMaxBounds(markers.getBounds());
   }
-  */
+
+
 }
