@@ -10,7 +10,7 @@ import { AmbulancesService } from '../services/ambulances.service';
 })
 export class AmbulancesComponent implements OnInit {
   ambulances: any[] = [];
-  ambulanceGeoJSON: any[] = []; // Created as geoJSON in ngOnInit
+  // ambulanceGeoJSON: any[] = []; // Created as geoJSON in ngOnInit
   map: mapboxgl.Map;
   style = "mapbox://styles/mapbox/light-v10";
   lat = 21.0059;
@@ -20,24 +20,24 @@ export class AmbulancesComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUpMap();
-    this.ambulances = [], this.ambulanceGeoJSON = [];
+    this.ambulances = []; //this.ambulanceGeoJSON = [];
     this.ambulanceServices.getData().subscribe(data => {
       this.ambulances = data;
-      let i = 0;
-      data.forEach(element => {
-        this.ambulanceGeoJSON.push({
-          "type": "Feature",
-          "properties": {
-            "clusterId": i++,
-            "cluster": false
-          },
-          "geometry": {
-            "type": "Point",
-            "coordinates": [element.lng, element.lat]
-          }
-        });
-      });
-      this.createClusters();
+      // let i = 0;
+      // data.forEach(element => {
+      //   this.ambulanceGeoJSON.push({
+      //     "type": "Feature",
+      //     "properties": {
+      //       "clusterId": i++,
+      //       "cluster": false
+      //     },
+      //     "geometry": {
+      //       "type": "Point",
+      //       "coordinates": [element.lng, element.lat]
+      //     }
+      //   });
+      // });
+      this.createMarkers();
     })
   }
 
@@ -52,18 +52,29 @@ export class AmbulancesComponent implements OnInit {
       style: this.style,
       zoom: 6.5,
       center: [this.lat, this.lng],
-      minZoom: 6.5
-      // interactive: false
+      minZoom: 6.5          // To disable zooming out too much
+      // interactive: false // To enable zooming in and out
     });
   }
 
-  createClusters() {
+  createMarkers() {
     this.map.on('load', () => {
-      /**this.ambulances.forEach(element => {
+      this.ambulances.forEach(element => {
+        let popup = new mapboxgl.Popup({ offset: 25 })
+          .setHTML("<strong><p>" + element.name + "</p> </strong>"
+            + "<em>" + element.street + ", " + element.city + "</em>"
+            + "<p>telefon:" + element.phone + "</p>"
+            + "<p>" + element.memo + "</p>");
+
         new mapboxgl.Marker()
           .setLngLat([element.lng, element.lat])
+          .setPopup(popup)
           .addTo(this.map);
-      })*/
+      })
+
+    });
+  }
+  /** createCluster(){
       this.map.addSource('points', {
         type: 'geojson',
         data: {
@@ -150,35 +161,35 @@ export class AmbulancesComponent implements OnInit {
         );
       });
 
-      // When a click event occurs on a feature in
-      // the unclustered-point layer, open a popup at
-      // the location of the feature, with
-      // description HTML from its properties.
-      // this.map.on('click', 'unclustered-point', (e) => {
-      //   var coordinates = e.features[0].geometry.coordinates.slice();
-      //   var mag = e.features[0].properties.mag;
-      //   var tsunami;
+      When a click event occurs on a feature in
+      the unclustered-point layer, open a popup at
+      the location of the feature, with
+      description HTML from its properties.
+      this.map.on('click', 'unclustered-point', (e) => {
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var mag = e.features[0].properties.mag;
+        var tsunami;
 
-      //   if (e.features[0].properties.tsunami === 1) {
-      //     tsunami = 'yes';
-      //   } else {
-      //     tsunami = 'no';
-      //   }
+        if (e.features[0].properties.tsunami === 1) {
+          tsunami = 'yes';
+        } else {
+          tsunami = 'no';
+        }
 
-      //   // Ensure that if the map is zoomed out such that
-      //   // multiple copies of the feature are visible, the
-      //   // popup appears over the copy being pointed to.
-      //   while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-      //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-      //   }
+        // Ensure that if the map is zoomed out such that
+        // multiple copies of the feature are visible, the
+        // popup appears over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
 
-      //   new mapboxgl.Popup()
-      //     .setLngLat(coordinates)
-      //     .setHTML(
-      //       'magnitude: ' + mag + '<br>Was there a tsunami?: ' + tsunami
-      //     )
-      //     .addTo(this.map);
-      // });
+        new mapboxgl.Popup()
+          .setLngLat(coordinates)
+          .setHTML(
+            'magnitude: ' + mag + '<br>Was there a tsunami?: ' + tsunami
+          )
+          .addTo(this.map);
+      });
 
       this.map.on('mouseenter', 'clusters', function () {
         this.map.getCanvas().style.cursor = 'pointer';
@@ -186,8 +197,6 @@ export class AmbulancesComponent implements OnInit {
       this.map.on('mouseleave', 'clusters', function () {
         this.map.getCanvas().style.cursor = '';
       });
-
-
-    });
   }
+  */
 }
