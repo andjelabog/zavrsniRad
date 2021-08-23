@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
           this.dataFromMongoFirst.push(data[i]);
 
           this.firstGraph[numberForFirst] = [];
-          this.firstGraph[numberForFirst][0] = (data[i]['name']);
+          this.firstGraph[numberForFirst][0] = (this.translate.getDefaultLang() == "sr") ? (data[i]['name']) : (data[i]['nameENG']);
           for (let j = 0; j < data[i]['data'].length; j++) {
             this.firstGraphData.push(data[i]['data'][j]['people'])
             if (i == 0) {
@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
           if (starterForSecond == -1)
             starterForSecond = i;
           this.secondGraph[numberForSecond] = [];
-          this.secondGraph[numberForSecond][0] = (data[i]['name']);
+          this.secondGraph[numberForSecond][0] = (this.translate.getDefaultLang() == "sr") ? (data[i]['name']) : (data[i]['nameENG']);
           for (let j = 0; j < data[i]['data'].length; j++) {
             this.secondGraphData.push(data[i]['data'][j]['people'])
           }
@@ -164,7 +164,7 @@ export class DashboardComponent implements OnInit {
       this.dataFromMongoFirst.forEach(element => {
         element.data.forEach(data => {
           preparedArray.push({
-            name: element.name,
+            name: (this.translate.getDefaultLang() == "sr") ? element.name : element.nameENG,
             date: data['date'],
             people: data['people']
           })

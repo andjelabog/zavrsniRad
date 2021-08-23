@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -8,18 +8,20 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HeaderComponent {
 
-  rsFlag=true;
 
-  constructor(private translate: TranslateService) { }
-
+  constructor(private translate: TranslateService) {
+  }
+  getTranslate() {
+    return this.translate;
+  }
   changeLanguage() {
-    if (this.translate.getDefaultLang() == 'sr'){
+    if (this.translate.getDefaultLang() == 'sr') {
       this.translate.setDefaultLang('en')
-      this.rsFlag = false;
+      localStorage.setItem("lng", "en")
     }
-    else{
+    else {
       this.translate.setDefaultLang('sr')
-      this.rsFlag = true;
+      localStorage.setItem("lng", "sr")
     }
   }
 }

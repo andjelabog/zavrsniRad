@@ -20,8 +20,8 @@
                     <!-- <a class=""> -->
                     <button type="navbar-brand button" class="btn btn-light" (click)="changeLanguage()">
                         <span>
-                            <img *ngIf="!rsFlag" src="http://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg"/>
-                            <img *ngIf="rsFlag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RS.svg"/>
+                            <img *ngIf="getTranslate().getDefaultLang() != 'sr'" src="http://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg"/>
+                            <img *ngIf="getTranslate().getDefaultLang() == 'sr'" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RS.svg"/>
                             {{'lng' | translate}}
                         </span>
                     </button>

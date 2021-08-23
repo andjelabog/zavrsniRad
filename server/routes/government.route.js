@@ -73,11 +73,67 @@ router.get('/initial', function(req, res) {
     };
     doACall(options).then(function(body) {
         initialArray = JSON.parse(body);
-        console.log(initialArray)
+        let nameENG = "";
         for (let i = 0; i < initialArray.length; i++) {
+            switch (initialArray[i]['dataCode'].toString()) {
+                case 'BROJ_LICA_NA_RESPIRATORU_ZA_DATI_DATUM':
+                    nameENG = "Total on Respirators"
+                    break;
+                case 'BROJ_HOSPITALIZOVANIH_LICA_ZA_DATI_DATUM':
+                    nameENG = "Total Hospitalized"
+                    break;
+                case 'BROJ_POZITIVNIH_LICA_ZA_DATI_DATUM':
+                    nameENG = "Daily New Cases"
+                    break;
+                case 'UKUPAN_BROJ_POZITIVNIH_LICA_OD_POČETKA_PANDEMIJE':
+                    nameENG = "Total Cases"
+                    break;
+                case 'BROJ_TESTIRANIH_LICA_ZA_DATI_DATUM':
+                    nameENG = "Daily Tested"
+                    break;
+                case 'UKUPAN_BROJ_TESTIRANIH_LICA_OD_POČETKA_PANDEMIJE':
+                    nameENG = "Total Tested"
+                    break;
+                case 'BROJ_PREMINULIH_LICA_ZA_DATI_DATUM':
+                    nameENG = "Daily Deaths"
+                    break;
+                case 'BROJ_PREMINULIH_MUŠKARACA_ZA_DATI_DATUM':
+                    nameENG = "Men Daily Deaths"
+                    break;
+                case 'BROJ_PREMINULIH_ŽENA_ZA_DATI_DATUM':
+                    nameENG = "Women Daily Deaths"
+                    break;
+                case 'UKUPAN_BROJ_PREMINULIH_LICA_OD_POČETKA_PANDEMIJE':
+                    nameENG = "Total Deaths"
+                    break;
+                case 'UKUPAN_BROJ_IZLEČENIH_LICA_OD_POČETKA_PANDEMIJE':
+                    nameENG = "Total Recovered"
+                    break;
+                case 'PROSEK_GODINA_LICA_PREMINULIH_ZA_DATI_DATUM':
+                    nameENG = "Daily Mean Age of Deaths"
+                    break;
+                case 'PROCENAT_ZARAŽENIH_LICA_ U_ODNOSU_NA_BROJ_TESTIRANIH_LICA_ZA_DATI DATUM':
+                    nameENG = "Daily Percent infected / tested"
+                    break;
+                case 'PROCENAT_ZARAŽENIH_LICA_OD_POČETKA_PANDEMIJE_U_ODNOSU_NA_UKUPAN_BROJ_TESTIRANIH_LICA':
+                    nameENG = "Total Percent infected / tested"
+                    break;
+                case 'PROCENAT_HOSPITALIZOVANIH_LICA_U ODNOSU_NA_UKUPAN_BROJ_ZARAŽENIH_ZA_DATI_DATUM':
+                    nameENG = "Percent Hospitalized / infected"
+                    break;
+                case 'PROCENAT_IZLEČENIH_LICA_U_ODNOSU_NA_UKUPAN_BROJ_ZARAŽENIH_OD_POČETKA_PANDEMIJE':
+                    nameENG = "Total Percent Recoverd / Infected"
+                    break;
+                case 'PROCENAT_LICA_NA_RESPIRATORU_U_ODNOSU_NA_UKUPAN_BROJ_HOSPITALIZOVANIH':
+                    nameENG = "Total Percent on Respirators / Hospitalized"
+                    break;
+                default:
+                    nameENG = "";
+            }
             const newInitial = new Initial({
                 code: initialArray[i]['dataCode'],
                 name: initialArray[i]['dataName'],
+                nameENG: nameENG,
                 data: []
             })
             for (let j = 0; j < initialArray[i]['points'].length; j++) {

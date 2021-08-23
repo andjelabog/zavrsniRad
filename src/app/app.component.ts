@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import User from './models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +9,8 @@ import User from './models/user.model';
 export class AppComponent {
 
   constructor(private translate: TranslateService) {
-    translate.setDefaultLang('sr');
+    let localStorageLNG = null;
+    localStorageLNG = localStorage.getItem("lng");
+    translate.setDefaultLang(localStorageLNG == null ? 'sr' : localStorageLNG);
   }
 }
