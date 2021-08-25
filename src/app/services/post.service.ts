@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
 import { environment } from '../../environments/environment';
-import Post from '../models/post.model';
+// import Post from '../models/post.model';
 
 @Injectable()
 export class PostService {
@@ -13,23 +13,23 @@ export class PostService {
     private http: HttpClient
   ) { }
 
-  public getPosts(): Observable<Post[]> {
-    return this.http
-      .get(this.postsUrl)
-      .pipe(map(response => response['data'] as Post[]));
-  }
+  // public getPosts(): Observable<Post[]> {
+  //   return this.http
+  //     .get(this.postsUrl)
+  //     .pipe(map(response => response['data'] as Post[]));
+  // }
 
-  public getPublishedPosts(): Observable<Post[]> {
-    return this.getPosts()
-      .pipe(map(posts => {
-        return posts
-          .filter(post => post.isPublished)
-          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-      }));
-  }
+  // public getPublishedPosts(): Observable<Post[]> {
+  //   return this.getPosts()
+  //     .pipe(map(posts => {
+  //       return posts
+  //         .filter(post => post.isPublished)
+  //         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  //     }));
+  // }
 
-  public getPostById(id: string): Observable<Post> {
-    return this.http.get(`${this.postsUrl}/${id}`)
-      .pipe(map(response => response['data'] as Post));
-  }
+  // public getPostById(id: string): Observable<Post> {
+  //   return this.http.get(`${this.postsUrl}/${id}`)
+  //     .pipe(map(response => response['data'] as Post));
+  // }
 }

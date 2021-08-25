@@ -13,4 +13,19 @@ export class AppComponent {
     localStorageLNG = localStorage.getItem("lng");
     translate.setDefaultLang(localStorageLNG == null ? 'sr' : localStorageLNG);
   }
+  getTranslate() {
+    return this.translate;
+  }
+  changeLanguage() {
+    if (this.translate.getDefaultLang() == 'sr') {
+      this.translate.setDefaultLang('en');
+      localStorage.setItem("lng", "en");
+      // location.reload();
+    }
+    else {
+      this.translate.setDefaultLang('sr');
+      localStorage.setItem("lng", "sr");
+      // location.reload();
+    }
+  }
 }

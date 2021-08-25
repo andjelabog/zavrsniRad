@@ -3,37 +3,34 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // import pipes
 import { TrimPipe } from './utils/trim.pipe';
 
 // import components
 import { AppComponent } from './app.component';
-import { BaseComponent } from './components/base/base.component';
-import { HeaderComponent } from './components/header/header.component';
 import { ChartsComponent } from './components/modular-components/charts/charts.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardComponent, DashboardDialog } from './components/dashboard/dashboard.component';
 import { ChartsModule } from 'ng2-charts';
 import { DounughtChartComponent } from './components/modular-components/dounught-chart/dounught-chart.component';
 import { LineChartComponent } from './components/modular-components/line-chart/line-chart.component';
-
-import { FooterComponent } from './components/footer/footer.component';
-
-// import services
-import { PostService } from './services/post.service';
-import { GovernmentService } from './services/government.service';
-import { DashboardService } from './services/dashboard-service.service';
-// import ngx-translate and the http loader
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { MailService } from './services/mail.service';
+import { AmbulancesComponent } from './ambulances/ambulances.component';
 import { ShowOnMapComponent } from './components/show-on-map/show-on-map.component';
 
+// import services
+import { GovernmentService } from './services/government.service';
+import { DashboardService } from './services/dashboard-service.service';
+import { MailService } from './services/mail.service';
+
+// import ngx-translate and the http loader
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 // material imports
-import { MatSliderModule } from '@angular/material/slider';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -42,36 +39,32 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { AmbulancesComponent } from './ambulances/ambulances.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+
 
 
 const appRoutes: Routes = [
-  {
-    path: '',
-    component: BaseComponent,
-    children: [
-      { path: '', component: DashboardComponent },
-      { path: 'map', component: ShowOnMapComponent },
-      { path: 'ambulances', component: AmbulancesComponent }
-    ]
-
-  }
+  { path: '', component: DashboardComponent },
+  { path: 'map', component: ShowOnMapComponent },
+  { path: 'ambulances', component: AmbulancesComponent }
 ];
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     TrimPipe,
-    BaseComponent,
     ChartsComponent,
     DashboardComponent,
+    DashboardDialog,
     DounughtChartComponent,
     LineChartComponent,
-    FooterComponent,
     ShowOnMapComponent,
     AmbulancesComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -79,6 +72,7 @@ const appRoutes: Routes = [
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
+    FlexLayoutModule,
     ChartsModule,
     FormsModule,
     // ngx-translate and the loader module
@@ -99,6 +93,11 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     MatSnackBarModule,
     MatTooltipModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatDialogModule,
+    MatInputModule
   ],
   providers: [
     GovernmentService,

@@ -1,0 +1,10 @@
+<div mat-dialog-content>
+    <mat-form-field appearance="fill">
+        <mat-label>{{'modal'| translate}}</mat-label>
+        <input matInput cdkFocusInitial pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" [(ngModel)]="data.email">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">{{'close'| translate}}</button>
+    <button mat-button [mat-dialog-close]="data.email" cdkFocusInitial>{{'ok'| translate}}</button>
+</div>

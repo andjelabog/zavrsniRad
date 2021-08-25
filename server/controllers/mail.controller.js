@@ -16,7 +16,7 @@ exports.sendMail = function(req, res) {
             pass: 'zavrsniRad_19'
         }
     });
-
+    console.log("Recipient: " + req.body.email);
     // writeFile function with filename, content and callback function
     fs.writeFile('covid19.csv', JSON.parse(req.body.body), function(err) {
         if (err) throw err;
@@ -25,7 +25,7 @@ exports.sendMail = function(req, res) {
 
             // Has to be in else, for synching File System's creation of file then sending the file.
             let mailOptions = {
-                from: '"zavrsniRad" zavrsnirad19@gmail.com',
+                from: '"Zavrsni Rad" zavrsnirad19@gmail.com',
                 to: req.body.email, // Sent from modal
                 subject: 'Zavrsni Rad',
                 text: "Zavrsni rad",
@@ -39,7 +39,7 @@ exports.sendMail = function(req, res) {
                 if (error) {
                     return console.log(error.message);
                 }
-                console.log('success');
+                console.log('Success.');
             });
         }
     });

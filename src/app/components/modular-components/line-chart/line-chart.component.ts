@@ -26,14 +26,14 @@ export class LineChartComponent implements OnInit {
    */
   public lineChartOptions: ChartOptions = {
     responsive: true,
-    aspectRatio: 2,
+    aspectRatio: 1.5,
     legend: {
       display: true,
-      position: 'right',
+      position: 'bottom',
       labels: {
         usePointStyle: true,
       },
-      align: 'end',
+      align: 'center',
     },
     spanGaps: true,
     tooltips: {
@@ -90,7 +90,7 @@ export class LineChartComponent implements OnInit {
         this.lineChartLabels = this.inputLineChartLabels;
         this.showLoader = false;
       }
-    }, 5000);
+    }, 3000);
   }
 
 

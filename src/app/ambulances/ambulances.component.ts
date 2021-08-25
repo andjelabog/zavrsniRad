@@ -34,15 +34,15 @@ export class AmbulancesComponent implements OnInit, AfterViewInit {
     // Initialize the map on the "map" div with a given center and zoom
     this.map = L.map('map', {
       center: [this.lng, this.lat],
-      zoomSnap: 0.1,
+      // zoomSnap: 0.4,
       zoom: 7.4,
       zoomControl: false,
-      dragging: false
+      dragging: true
     });
     // Draw a layer [ tileLayer ]
     let tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      minZoom: 7.5,
+      // maxZoom: 18,
+      minZoom: 7,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">Zavrsni rad</a>'
     });
     tiles.addTo(this.map);

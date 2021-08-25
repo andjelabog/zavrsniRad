@@ -1,11 +1,17 @@
 import { formatDate } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { DashboardService } from 'src/app/services/dashboard-service.service';
 import { GovernmentService } from 'src/app/services/government.service';
 import { MailService } from 'src/app/services/mail.service';
 import { saveAs } from 'file-saver';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+export interface DialogData {
+  email: string;
+}
+
 
 @Component({
   selector: 'app-dashboard',
@@ -34,7 +40,8 @@ export class DashboardComponent implements OnInit {
     private dashboardService: DashboardService,
     private gs: GovernmentService,
     private _snackBar: MatSnackBar,
-    private translate: TranslateService) { }
+    private translate: TranslateService,
+    public dialog: MatDialog) { }
 
 
   ngOnInit(): void {
@@ -80,7 +87,7 @@ export class DashboardComponent implements OnInit {
           this.secondGraph[numberForSecond++][1] = (this.secondGraphData);
           this.secondGraphData = [];
         }
-       
+
       }
       /**
          * Adding another date to the end of the array of labels, to avoid "undefined".
@@ -92,11 +99,8 @@ export class DashboardComponent implements OnInit {
       date = new Date(this.secondGraphChartLabels[this.secondGraphChartLabels.length - 1]);
       date.setDate(date.getDate() + 1);
       this.secondGraphChartLabels.push(formatDate(date, "yyyy-MM-dd", "en"));
-      
-      
-      setTimeout(() => {
-        this.showLoader = false;
-      }, 5000);
+
+      this.showLoader = false;
     })
   }
 
@@ -195,11 +199,40 @@ export class DashboardComponent implements OnInit {
     this.mailer = number;
   }
   /**
-   * Opening Angular-Material snackbar. 
+   * Opening Angular-Material dialog. 
    * @param action 
    */
-  openSnackBar(action: string) {
-    this._snackBar.open(this.translate.instant('success_message') + "", action);
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DashboardDialog, {
+      width: '250px',
+      data: { email: this.emailForNode }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.emailForNode = result;
+      this.sendMail();
+    });
+  }
+
+
+}
+
+
+
+
+
+@Component({
+  selector: 'dashboard-dialog',
+  templateUrl: `dashboard-dialog.component.html`,
+})
+export class DashboardDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DashboardDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }
