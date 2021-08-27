@@ -63,6 +63,9 @@ module.exports = () => {
     });
 
     const task = cron.schedule('* * * * *', () => {
+        getWorldDataForSerbia();
+        Initial.remove({});
+        createNewInitials();
         createAmbulances();
     })
 }
