@@ -47,8 +47,6 @@ export class PieChartComponent implements OnInit {
         && !!this.inputPieChartData && this.inputPieChartData.length > 0) {
         this.pieChartData = this.inputPieChartData;
         this.pieChartLabels = this.inputPieChartLabels;
-        console.log(this.pieChartData)
-        console.log(this.pieChartLabels)
       }
       this.showLoader = false;
     }, 3000);

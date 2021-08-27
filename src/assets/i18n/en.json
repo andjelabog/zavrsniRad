@@ -14,5 +14,18 @@
     "ok": "OK!",
     "close": "Close",
     "modal": "Please insert your email",
-    "success_message": "Email was sent to selected mail address"
+    "success_message": "Email was sent to selected mail address",
+    "population": "Population",
+    "totalCases": "Total number of registered cases",
+    "newCases": "New registered cases",
+    "totalDeaths": "Total number of registered deaths",
+    "newDeaths": "New registered deaths",
+    "newTests": "New number of tests",
+    "totalTests": "Total number of registered",
+    "positiveRate": "Positive rate",
+    "mortalityRate": "Mortality rate",
+    "totalVaccinations": "Total number of registered vaccinations",
+    "peopleVaccinated": "Total number of people vaccinated",
+    "newVaccinations": "New number of vaccinated people",
+    "peopleFullyVaccinated": "Total number of people fully vaccinated"
 }

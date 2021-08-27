@@ -18,11 +18,13 @@ import { ChartsModule } from 'ng2-charts';
 import { PieChartComponent } from './components/modular-components/pie-chart/pie-chart.component';
 import { LineChartComponent } from './components/modular-components/line-chart/line-chart.component';
 import { AmbulancesComponent } from './components/ambulances/ambulances.component';
+import { DataComponent } from './components/data/data.component';
 
 // import services
 import { GovernmentService } from './services/government.service';
 import { DashboardService } from './services/dashboard-service.service';
 import { MailService } from './services/mail.service';
+import { DataService } from './services/data.service';
 
 // import ngx-translate and the http loader
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -42,8 +44,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import { DataComponent } from './components/data/data.component';
-import { DataService } from './services/data.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTableModule } from '@angular/material/table';
 
 
 
@@ -65,7 +67,7 @@ const appRoutes: Routes = [
     LineChartComponent,
     DataComponent,
     AmbulancesComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -98,7 +100,9 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatIconModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressBarModule,
+    MatTableModule
   ],
   providers: [
     GovernmentService,
