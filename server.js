@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const routes = require('./server/routes');
 const app = express();
 
+require('./server/jobs/cron.job')();;
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
@@ -33,5 +34,5 @@ app.set('port', port);
 
 const server = http.createServer(app);
 server.listen(port, function() {
-    console.info(`Server started on http://localhost:${port}`)
+    console.log(`Server started on http://localhost:${port}`)
 });

@@ -15,10 +15,9 @@ import { AppComponent } from './app.component';
 import { ChartsComponent } from './components/modular-components/charts/charts.component';
 import { DashboardComponent, DashboardDialog } from './components/dashboard/dashboard.component';
 import { ChartsModule } from 'ng2-charts';
-import { DounughtChartComponent } from './components/modular-components/dounught-chart/dounught-chart.component';
+import { PieChartComponent } from './components/modular-components/pie-chart/pie-chart.component';
 import { LineChartComponent } from './components/modular-components/line-chart/line-chart.component';
-import { AmbulancesComponent } from './ambulances/ambulances.component';
-import { ShowOnMapComponent } from './components/show-on-map/show-on-map.component';
+import { AmbulancesComponent } from './components/ambulances/ambulances.component';
 
 // import services
 import { GovernmentService } from './services/government.service';
@@ -43,12 +42,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
+import { DataComponent } from './components/data/data.component';
+import { DataService } from './services/data.service';
 
 
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent },
-  { path: 'map', component: ShowOnMapComponent },
+  { path: 'data', component: DataComponent },
   { path: 'ambulances', component: AmbulancesComponent }
 ];
 
@@ -60,9 +61,9 @@ const appRoutes: Routes = [
     ChartsComponent,
     DashboardComponent,
     DashboardDialog,
-    DounughtChartComponent,
+    PieChartComponent,
     LineChartComponent,
-    ShowOnMapComponent,
+    DataComponent,
     AmbulancesComponent,
     
   ],
@@ -102,7 +103,8 @@ const appRoutes: Routes = [
   providers: [
     GovernmentService,
     MailService,
-    DashboardService
+    DashboardService,
+    DataService
   ],
   bootstrap: [AppComponent]
 })

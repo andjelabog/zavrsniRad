@@ -1,0 +1,10 @@
+<div class="chart-container position-relative " *ngIf="showLoader">
+    <br><br><br><br><br><br>
+    <div class="spinner-border text-primary position-absolute top-50 start-50" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<div class="chart-container" *ngIf="pieChartData && !showLoader">
+    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+    </canvas>
+</div>

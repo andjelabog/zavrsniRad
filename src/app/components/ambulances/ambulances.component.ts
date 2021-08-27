@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet.markercluster'
-import { AmbulancesService } from '../services/ambulances.service';
+import { AmbulancesService } from '../../services/ambulances.service';
 
 @Component({
   selector: 'app-ambulances',

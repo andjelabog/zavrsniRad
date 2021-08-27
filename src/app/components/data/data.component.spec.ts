@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShowOnMapComponent } from './show-on-map.component';
+import { DataComponent } from './data.component';
 
-describe('ShowOnMapComponent', () => {
-  let component: ShowOnMapComponent;
-  let fixture: ComponentFixture<ShowOnMapComponent>;
+describe('DataComponent', () => {
+  let component: DataComponent;
+  let fixture: ComponentFixture<DataComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShowOnMapComponent ]
+      declarations: [ DataComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShowOnMapComponent);
+    fixture = TestBed.createComponent(DataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
