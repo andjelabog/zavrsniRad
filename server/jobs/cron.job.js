@@ -1,5 +1,6 @@
 var cron = require('node-cron');
 const rp = require('request-promise');
+const Initial = require('../models/initial.model');
 
 function doACall(options) {
     return rp(options)
@@ -8,6 +9,7 @@ function doACall(options) {
         })
         .catch(error =>
             console.log("API call failed: " + error))
+    return null;
 }
 
 function getWorldDataForSerbia() {
@@ -21,17 +23,46 @@ function getWorldDataForSerbia() {
     doACall(options);
 }
 
+function createNewInitials() {
+    var options = {
+        uri: 'http://localhost:3000/api/govs/initial',
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    doACall(options);
+}
 
-module.exports = () => {
-    // cron.schedule('* * * * *', () => {
-    //     getWorldDataForSerbia();
-    // });
+function createAmbulances() {
+    var options = {
+        uri: 'http://localhost:3000/api/govs/ambulances',
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    doACall(options);
+    task.stop();
 }
 
 
 /**
  * At 03:00. do a specific job.
  */
-//  var task=  cron.schedule('0 3 * * *', () => {
-//     console.log('running a task every minute');
-// });
+
+
+/**
+ * TESTING : '* * * * *' => RUN EVERY MINUTE
+ */
+module.exports = () => {
+    cron.schedule('0 3 * * *', () => {
+        getWorldDataForSerbia();
+        Initial.remove({});
+        createNewInitials();
+    });
+
+    const task = cron.schedule('* * * * *', () => {
+        createAmbulances();
+    })
+}
