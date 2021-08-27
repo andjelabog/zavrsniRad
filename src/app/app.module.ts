@@ -11,7 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { TrimPipe } from './utils/trim.pipe';
 
 // import components
-import { AppComponent } from './app.component';
+import { AppComponent, WelcomeDialog } from './app.component';
 import { ChartsComponent } from './components/modular-components/charts/charts.component';
 import { DashboardComponent, DashboardDialog } from './components/dashboard/dashboard.component';
 import { ChartsModule } from 'ng2-charts';
@@ -67,7 +67,7 @@ const appRoutes: Routes = [
     LineChartComponent,
     DataComponent,
     AmbulancesComponent,
-
+    WelcomeDialog
   ],
   imports: [
     BrowserModule,

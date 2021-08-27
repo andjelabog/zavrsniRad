@@ -175,7 +175,6 @@ router.get('/worldDataSerbia', function(req, res) {
     };
     doACall(options).then(function(body) {
         let serbianData = JSON.parse(body)["SRB"]; // Specific for Serbia
-        console.log(serbianData)
         const newOWIDSerbia = new OWIDSerbia({
             population: serbianData["population"],
             lastUpdatedDate: serbianData["last_updated_date"],

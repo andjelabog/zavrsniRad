@@ -1,4 +1,6 @@
 {
+    "welcome": "Welcome",
+    "welcomeMSG": "In the Republic of Serbia, the first case of COVID-19 was registered on March 6, 2020. years and the epidemic is still ongoing. At the moment, the epidemiological situation is stable with a tendency to decrease the incidence of the disease in all parts of the country. However, the SARS-CoV-2 virus is still circulating in the territory of the Republic of Serbia, so it is recommended to follow preventive measures in order to reduce the risk of occurrence and transmission of this infection.",
     "charts_and_graphs": "Charts and graphs",
     "dashboard": "Dashboard",
     "home": "Home page",
@@ -27,5 +29,11 @@
     "totalVaccinations": "Total number of registered vaccinations",
     "peopleVaccinated": "Total number of people vaccinated",
     "newVaccinations": "New number of vaccinated people",
-    "peopleFullyVaccinated": "Total number of people fully vaccinated"
+    "peopleFullyVaccinated": "Total number of people fully vaccinated",
+    "contact19819": "Call center for informations about COVID19",
+    "contact19920": "Help the elderly",
+    "covidAmbulanceList": "Phone numbers of 'COVID' ambulances",
+    "covidInfo": "COVID-19 info",
+    "selfValidation": "Self evaluation test",
+    "vaccines": "Expression of interest for vaccination against COVID-19"
 }

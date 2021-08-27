@@ -23,6 +23,8 @@ export class PieChartComponent implements OnInit {
     plugins: {
       datalabels: {
         formatter: (value, ctx) => {
+          alert(value)
+          alert(ctx)
           const label = ctx.chart.data.labels[ctx.dataIndex];
           return label;
         },

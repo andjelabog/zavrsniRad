@@ -15,3 +15,9 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.backdropBackground {
+    filter: blur(20px);
+    background-color: gray;
+    opacity: 0.7 !important;
+}

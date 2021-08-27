@@ -1,5 +1,6 @@
-<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="flex-start">
-    <mat-card fxFlex="50%" fxFlex.lt-sm="100%">
+<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly stretch">
+
+    <mat-card fxFlex="47%" fxFlex.lt-sm="100%" class="mat-elevation-z8">
         <mat-card-header>
             <mat-card-subtitle>{{'podaci' | translate}}</mat-card-subtitle>
         </mat-card-header>
@@ -8,16 +9,15 @@
         </mat-card-content>
         <mat-card-actions fxLayout="row" fxLayoutAlign="space-evenly stretch">
             <button type="button" mat-raised-button mat-fab color="accent" [disabled]="showLoader" matTooltip="{{'download' | translate}}" (click)="downloadAsCSV(1)">
-                <i class="bi bi-cloud-download-fill"></i>
+                <mat-icon>cloud_download</mat-icon>
             </button>
             <button type="button" mat-raised-button mat-fab color="primary" [disabled]="showLoader" matTooltip="{{'email_send' | translate}}" (click)="setMailer(1);openDialog()">
-                <i class="bi bi-envelope-open-fill"></i>
+                <mat-icon> email</mat-icon>
             </button>
         </mat-card-actions>
     </mat-card>
 
-
-    <mat-card fxFlex="50%" fxFlex.lt-sm="100%">
+    <mat-card fxFlex="47%" fxFlex.lt-sm="100%" class="mat-elevation-z8">
         <mat-card-header>
             <mat-card-subtitle>{{'podaci' | translate}}</mat-card-subtitle>
         </mat-card-header>
@@ -26,10 +26,10 @@
         </mat-card-content>
         <mat-card-actions fxLayout="row" fxLayoutAlign="space-evenly stretch">
             <button type="button" mat-raised-button mat-fab color="accent" [disabled]="showLoader" matTooltip="{{'download' | translate}}" (click)="downloadAsCSV(2)">
-                <i class="bi bi-cloud-download-fill"></i>
+                <mat-icon>cloud_download</mat-icon>
             </button>
             <button type="button" mat-raised-button mat-fab color="primary" [disabled]="showLoader" matTooltip="{{'email_send' | translate}}" (click)="setMailer(2);openDialog()">
-                <i class="bi bi-envelope-open-fill"></i>
+                <mat-icon> email</mat-icon>
             </button>
         </mat-card-actions>
     </mat-card>

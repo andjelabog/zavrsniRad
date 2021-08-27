@@ -1,28 +1,88 @@
-<div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
-    <ng-container *ngFor="let _ of [1,2,3,4,5,6]">
-        <mat-card fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">Simple card</mat-card>
+<div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="space-evenly stretch" class="padding-on-div">
+    <ng-container>
+        <mat-card fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="mat-elevation-z8 bg-info1">
+            <mat-card-content class="center-vertically">
+                <mat-progress-bar mode="query"></mat-progress-bar>
+                <h2 class="mat-body mat-h2" [innerHTML]="'totalCases' | translate"></h2>
+                <h1 class="mat-body mat-h1"> {{numberWithCommas(data["totalCases"])}} </h1>
+                <h4 class="mat-body mat-h4">{{getPercentage(data["population"],data["totalCases"])}} %</h4>
+                <mat-progress-bar mode="query"></mat-progress-bar>
+            </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="mat-elevation-z8 bg-info1">
+            <mat-card-content class="center-vertically">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                <h2 class="mat-body mat-h2" [innerHTML]="'totalDeaths' | translate"></h2>
+                <h1 class="mat-body mat-h1"> {{numberWithCommas(data["totalDeaths"])}} </h1>
+                <h4 class="mat-body mat-h4">{{getPercentage(data["population"],data["totalDeaths"])}} %</h4>
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="mat-elevation-z8">
+            <pie-chart [inputPieChartData]="inputPieChartDataTotal" [inputPieChartLabels]="inputPieChartLabelsTotal"></pie-chart>
+        </mat-card>
     </ng-container>
 </div>
 
-<div *ngIf="collectedData && collectedData.length > 0">
-    <table mat-table [dataSource]="collectedData" class="mat-elevation-z8">
-        <!-- Item Column -->
-        <ng-container matColumnDef="item">
-            <th mat-header-cell *matHeaderCellDef> Item </th>
-            <td mat-cell *matCellDef="let data"> {{data.name}} </td>
-        </ng-container>
+<br><br>
 
-        <!-- Cost Column -->
-        <ng-container matColumnDef="cost">
-            <th mat-header-cell *matHeaderCellDef> Cost </th>
-            <td mat-cell *matCellDef="let data"> {{numberWithCommas(data.value)}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+<div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="space-evenly stretch" class="padding-on-div">
+    <ng-container>
+        <mat-card fxFlex="0 1 calc(25% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="mat-elevation-z4 bg-info2">
+            <mat-card-content class="center-vertically">
+                <h2 class="mat-body" [innerHTML]="'totalTests' | translate"></h2>
+                <h1 class="mat-body"> {{numberWithCommas(data["totalTests"])}} </h1>
+            </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="0 1 calc(25% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="mat-elevation-z4 bg-info2">
+            <mat-card-content class="center-vertically">
+                <h2 class="mat-body" [innerHTML]="'newTests' | translate"></h2>
+                <h1 class="mat-body"> {{numberWithCommas(data["newTests"])}} </h1>
+            </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="0 1 calc(25% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="mat-elevation-z4 bg-info2">
+            <mat-card-content class="center-vertically">
+                <h2 class="mat-body" [innerHTML]="'newCases' | translate"></h2>
+                <h1 class="mat-body"> {{numberWithCommas(data["newCases"])}} </h1>
+            </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="0 1 calc(25% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="mat-elevation-z4 bg-info2">
+            <mat-card-content class="center-vertically">
+                <h2 class="mat-body" [innerHTML]="'newDeaths' | translate"></h2>
+                <h1 class="mat-body"> {{numberWithCommas(data["newDeaths"])}} </h1>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
 </div>
 
+<br><br>
 
-
-<pie-chart [inputPieChartData]="inputPieChartData" [inputPieChartLabels]="inputPieChartLabels"></pie-chart>
+<div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="space-evenly stretch" class="padding-on-div">
+    <ng-container>
+        <mat-card fxFlex="0 1 calc(25% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="mat-elevation-z4 bg-info2">
+            <mat-card-content class="center-vertically">
+                <h2 class="mat-body" [innerHTML]="'totalVaccinations' | translate"></h2>
+                <h1 class="mat-body"> {{numberWithCommas(data["totalVaccinations"])}} </h1>
+            </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="0 1 calc(25% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="mat-elevation-z4 bg-info2">
+            <mat-card-content class="center-vertically">
+                <h2 class="mat-body" [innerHTML]="'peopleFullyVaccinated' | translate"></h2>
+                <h1 class="mat-body"> {{numberWithCommas(data["peopleFullyVaccinated"])}} </h1>
+                <h4 class="mat-body mat-h4">{{getPercentage(data["population"],data["peopleFullyVaccinated"])}} %</h4>
+            </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="0 1 calc(25% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="mat-elevation-z4 bg-info2">
+            <mat-card-content class="center-vertically">
+                <h2 class="mat-body" [innerHTML]="'peopleVaccinated' | translate"></h2>
+                <h1 class="mat-body"> {{numberWithCommas(data["peopleVaccinated"])}} </h1>
+            </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="0 1 calc(25% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="mat-elevation-z4 bg-info2">
+            <mat-card-content class="center-vertically">
+                <h2 class="mat-body" [innerHTML]="'newVaccinations' | translate"></h2>
+                <h1 class="mat-body"> {{numberWithCommas(data["newVaccinations"])}} </h1>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+</div>

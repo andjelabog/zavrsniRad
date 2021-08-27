@@ -1,0 +1,32 @@
+.center-vertically {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+.mat-card-content {
+    max-height: 100%;
+    /* position: absolute; */
+    overflow: auto;
+}
+
+.padding-on-div {
+    /* padding-top: 5%; */
+    padding-bottom: 5%;
+}
+
+.bg-info1 {
+    background-color: #3F51B5!important;
+    color: white;
+}
+
+.bg-info2 {
+    background-color: #7460ee!important;
+    color: white;
+}
+
+.bg-info3 {
+    background-color: #26c6da!important;
+    color: white;
+}

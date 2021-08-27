@@ -1,3 +1,14 @@
 .menu-spacer {
     flex: 1 1 auto;
 }
+
+.bg-info1 {
+    background-color: #3F51B5;
+    text-align: center;
+    color: white;
+}
+
+.padding-on-div {
+    /* padding-top: 5%; */
+    padding-bottom: 5%;
+}
