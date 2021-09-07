@@ -43,7 +43,6 @@ function createAmbulances() {
         }
     };
     doACall(options);
-    task.stop();
 }
 
 
@@ -62,10 +61,9 @@ module.exports = () => {
         createNewInitials();
     });
 
-    const task = cron.schedule('* * * * *', () => {
-        getWorldDataForSerbia();
-        Initial.remove({});
-        createNewInitials();
-        createAmbulances();
-    })
+    getWorldDataForSerbia();
+    Initial.remove({});
+    createNewInitials();
+    createAmbulances();
+
 }

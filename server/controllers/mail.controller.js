@@ -16,13 +16,10 @@ exports.sendMail = function(req, res) {
             pass: 'zavrsniRad_19'
         }
     });
-    console.log("Recipient: " + req.body.email);
     // writeFile function with filename, content and callback function
     fs.writeFile('covid19.csv', JSON.parse(req.body.body), function(err) {
         if (err) throw err;
         else {
-            console.log('File is created successfully.');
-
             // Has to be in else, for synching File System's creation of file then sending the file.
             let mailOptions = {
                 from: '"Zavrsni Rad" zavrsnirad19@gmail.com',
