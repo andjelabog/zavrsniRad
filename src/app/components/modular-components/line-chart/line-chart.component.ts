@@ -90,7 +90,7 @@ export class LineChartComponent implements OnInit {
         this.lineChartLabels = this.inputLineChartLabels;
         this.showLoader = false;
       }
-    }, 3000);
+    }, 5000);
   }
 
 
