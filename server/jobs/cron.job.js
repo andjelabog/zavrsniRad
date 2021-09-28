@@ -1,6 +1,8 @@
 var cron = require('node-cron');
 const rp = require('request-promise');
 const Initial = require('../models/initial.model');
+const Ambulance = require('../models/ambulance.model');
+const OWIDSerbia = require('../models/owidSerbia.model')
 
 function doACall(options) {
     return rp(options)
@@ -13,6 +15,7 @@ function doACall(options) {
 }
 
 function getWorldDataForSerbia() {
+
     var options = {
         uri: 'http://localhost:3000/api/govs/worldDataSerbia',
         method: 'GET',
@@ -47,23 +50,20 @@ function createAmbulances() {
 
 
 /**
- * At 03:00. do a specific job.
- */
-
-
-/**
  * TESTING : '* * * * *' => RUN EVERY MINUTE
+ * CHANGE SECOND STAR FOR HOUR
  */
 module.exports = () => {
-    cron.schedule('0 3 * * *', () => {
+    cron.schedule('0 17 * * *', () => {
         getWorldDataForSerbia();
-        Initial.remove({});
+        Initial.collection.drop();
         createNewInitials();
     });
-
+    OWIDSerbia.collection.drop();
     getWorldDataForSerbia();
-    Initial.remove({});
+    Initial.collection.drop();
     createNewInitials();
+    Ambulance.collection.drop();
     createAmbulances();
 
 }
